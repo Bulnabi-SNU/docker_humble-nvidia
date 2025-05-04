@@ -1,0 +1,106 @@
+version: "3.8"
+
+services:
+
+  devcontainer:
+    image: ksjsms/bulnabi-humble-nvidia            
+    runtime: nvidia                             
+    deploy:                                         
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    user: root
+    privileged: true
+    network_mode: host
+    ipc: host
+    environment:
+      DISPLAY: ${DISPLAY}
+      XDG_RUNTIME_DIR: /tmp
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+    working_dir: /ros2_ws
+    command: /bin/bash
+    tty: true
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+      - ../ros2_ws:/ros2_ws:cached
+      - /home/ksj/PX4-Autopilot:/PX4-Autopilot:cached
+      - vscode-extensions:/root/.vscode-server/extensions:cached
+      - /usr/lib:/usr/lib.host:ro                    
+
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+
+  devcontainer_2:
+    image: ksjsms/bulnabi-humble-nvidia
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    user: root
+    privileged: true
+    network_mode: host
+    ipc: host
+    environment:
+      DISPLAY: ${DISPLAY}
+      XDG_RUNTIME_DIR: /tmp
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+    working_dir: /ros2_ws
+    command: /bin/bash
+    tty: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+      - ../ros2_ws:/ros2_ws:cached
+      - ../PX4-Autopilot:/home/ksj/PX4-Autopilot:cached
+      - /usr/lib:/usr/lib.host:ro
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+
+  devcontainer_3:
+    image: ksjsms/bulnabi-humble-nvidia
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    user: root
+    privileged: true
+    network_mode: host
+    ipc: host
+    environment:
+      DISPLAY: ${DISPLAY}
+      XDG_RUNTIME_DIR: /tmp
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
+    working_dir: /ros2_ws
+    command: /bin/bash
+    tty: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+      - ../ros2_ws:/ros2_ws:cached
+      - ../PX4-Autopilot:/home/ksj/PX4-Autopilot:cached
+      - /usr/lib:/usr/lib.host:ro
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+
+volumes:
+  vscode-extensions:
